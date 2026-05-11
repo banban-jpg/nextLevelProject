@@ -1,13 +1,18 @@
 package Main.Controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
 
-@Controller
-public class IndexController {
-    @RequestMapping("/index")
-    public String home() {
-        return "/index.jsp"; // /WEB-INF/index.jsp
+@WebServlet("/index")
+public class IndexController extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.getRequestDispatcher("/index.jsp")
+               .forward(request, response);
     }
-
 }
