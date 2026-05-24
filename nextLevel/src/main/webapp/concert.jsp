@@ -31,7 +31,7 @@
             <div class="show-price">
               ₩165,000 <span>부터</span>
             </div>
-            <button class="btn-book">예매하기</button>
+            <a href="/concert/detail?id=1" class="btn-book">예매하기</a>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
             <div class="show-price">
               ₩187,000 <span>부터</span>
             </div>
-            <button class="btn-book">예매하기</button>
+            <a href="/concert/detail?id=2" class="btn-book">예매하기</a>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
             <div class="show-price">
               ₩143,000 <span>부터</span>
             </div>
-            <button class="btn-book">예매하기</button>
+            <a href="/concert/detail?id=3" class="btn-book">예매하기</a>
           </div>
         </div>
       </div>
@@ -91,7 +91,7 @@
             <div class="show-price">
               ₩99,000 <span>부터</span>
             </div>
-            <button class="btn-book">예매하기</button>
+            <a href="/concert/detail?id=4" class="btn-book">예매하기</a>
           </div>
         </div>
       </div>
