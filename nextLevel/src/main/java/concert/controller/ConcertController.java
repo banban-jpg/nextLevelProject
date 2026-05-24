@@ -1,9 +1,12 @@
 package concert.controller;
 
 import concert.service.ConcertService;
-import javax.servlet.*;
+
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/concert")
@@ -14,7 +17,7 @@ public class ConcertController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/concert.jsp")
-               .forward(request, response);
+        request.setAttribute("concertList", concertService.getConcertList());
+        request.getRequestDispatcher("/concert.jsp").forward(request, response);
     }
 }

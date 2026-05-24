@@ -1,9 +1,13 @@
 package concert.service;
 
 import concert.dao.ConcertDAO;
+import concert.dto.ConcertDTO;
+import java.util.List;
 
 public class ConcertService {
     private final ConcertDAO concertDAO = new ConcertDAO();
 
-    // Concert 관련 비즈니스 로직이 들어갈 곳입니다.
+    public List<ConcertDTO> getConcertList() {
+        return concertDAO.getAllConcerts();
+    }
 }
