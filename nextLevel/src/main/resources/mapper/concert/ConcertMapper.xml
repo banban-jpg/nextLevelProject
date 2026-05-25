@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="concert.mapper.ConcertMapper">
+    <resultMap id="concertResultMap" type="ConcertDTO">
+        <id property="concertId" column="CONCERT_ID"/>
+        <result property="title" column="TITLE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="bookingOpenAt" column="BOOKING_OPEN_AT"/>
+        <result property="venueId" column="VENUE_ID"/>
+        <result property="venueName" column="VENUE_NAME"/>
+        <result property="artistName" column="ARTIST_NAME"/>
+        <result property="genre" column="GENRE"/>
+    </resultMap>
+
+    <select id="selectAllConcerts" resultMap="concertResultMap">
+        SELECT c.CONCERT_ID,
+               c.TITLE,
+               c.DESCRIPTION,
+               c.BOOKING_OPEN_AT,
+               c.VENUE_ID,
+               c.ARTIST_NAME,
+               c.GENRE,
+               v.NAME AS VENUE_NAME
+        FROM CONCERT c
+        JOIN VENUE v ON c.VENUE_ID = v.VENUE_ID
+        ORDER BY c.CONCERT_ID DESC
+    </select>
+</mapper>
