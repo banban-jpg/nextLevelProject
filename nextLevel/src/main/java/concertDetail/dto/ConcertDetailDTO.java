@@ -10,6 +10,8 @@ public class ConcertDetailDTO {
     private String posterUrl;
     private String description;
     private String ticketNotice;
+    private String artistName;
+    private String genre;
 
     public ConcertDetailDTO() {}
 
@@ -46,4 +48,8 @@ public class ConcertDetailDTO {
     public void setDescription(String description) { this.description = description; }
     public String getTicketNotice() { return ticketNotice; }
     public void setTicketNotice(String ticketNotice) { this.ticketNotice = ticketNotice; }
+    public String getArtistName() { return artistName; }
+    public void setArtistName(String artistName) { this.artistName = artistName; }
+    public String getGenre() { return genre; }
+    public void setGenre(String genre) { this.genre = genre; }
 }

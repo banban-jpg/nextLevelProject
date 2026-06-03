@@ -23,6 +23,18 @@
         border-radius: 12px;
         box-shadow: var(--shadow-lg);
     }
+    .poster-placeholder {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        border-radius: 12px;
+        background: var(--lightest);
+        border: 1px solid #e7ebf3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-weight: 700;
+    }
     .info-area {
         flex-grow: 1;
     }
@@ -107,7 +119,14 @@
 <div class="container detail-container">
     <div class="detail-top-section" data-aos="fade-up">
         <div class="poster-area">
-            <img src="${concert.posterUrl}" alt="${concert.title}" class="poster-img">
+            <c:choose>
+                <c:when test="${not empty concert.posterUrl}">
+                    <img src="${concert.posterUrl}" alt="${concert.title}" class="poster-img">
+                </c:when>
+                <c:otherwise>
+                    <div class="poster-placeholder">NO POSTER</div>
+                </c:otherwise>
+            </c:choose>
         </div>
         
         <div class="info-area">
@@ -127,9 +146,15 @@
                     <span class="info-value" style="color: var(--primary); font-weight: 700;">${concert.bookingDate}</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">가격</span>
-                    <span class="info-value" style="font-weight: 800;">${concert.price}</span>
+                    <span class="info-label">아티스트</span>
+                    <span class="info-value">${concert.artistName}</span>
                 </div>
+                <c:if test="${not empty concert.genre}">
+                    <div class="info-row">
+                        <span class="info-label">장르</span>
+                        <span class="info-value">${concert.genre}</span>
+                    </div>
+                </c:if>
             </div>
             
             <button class="booking-btn-large">예매하기</button>
@@ -142,10 +167,12 @@
             ${concert.description}
         </div>
         
-        <span class="section-label">예매 안내 및 유의사항</span>
-        <div class="notice-box">
-            <i class="fas fa-exclamation-circle"></i> ${concert.ticketNotice}
-        </div>
+        <c:if test="${not empty concert.ticketNotice}">
+            <span class="section-label">예매 안내 및 유의사항</span>
+            <div class="notice-box">
+                <i class="fas fa-exclamation-circle"></i> ${concert.ticketNotice}
+            </div>
+        </c:if>
     </div>
 </div>
 
