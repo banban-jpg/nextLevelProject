@@ -19,4 +19,10 @@
         WHERE LOGIN_ID = #{loginId}
     </select>
 
+    <select id="findByUserId" parameterType="long" resultType="UserAccountDTO">
+        SELECT USER_ID, LOGIN_ID, PASSWORD_HASH, NAME, CREATED_AT
+        FROM USER_ACCOUNT
+        WHERE USER_ID = #{userId}
+    </select>
+
 </mapper>

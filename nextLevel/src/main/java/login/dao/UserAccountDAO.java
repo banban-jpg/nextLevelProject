@@ -36,4 +36,13 @@ public class UserAccountDAO {
             return null;
         }
     }
+
+    public UserAccountDTO findByUserId(Long userId) {
+        try (SqlSession session = MyBatisUtil.openSession()) {
+            return session.selectOne(NAMESPACE + "findByUserId", userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

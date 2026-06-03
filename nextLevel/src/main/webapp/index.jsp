@@ -2,7 +2,6 @@
 
 <%-- 1. 공통 헤더 (head 태그, 네비게이션 포함) --%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
   <section id="hero">
     <div class="hero-orb hero-orb-1"></div>

@@ -31,4 +31,9 @@ public class LoginServiceImpl implements LoginService {
     public boolean isDuplicateId(String loginId) {
         return userAccountDAO.countByLoginId(loginId) > 0;
     }
+
+    @Override
+    public UserAccountDTO getUserById(Long userId) {
+        return userAccountDAO.findByUserId(userId);
+    }
 }

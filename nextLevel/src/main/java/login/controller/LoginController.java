@@ -19,6 +19,13 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        // 로그인 상태라면 메인 페이지로 리다이렉트
+        if (login.util.AuthUtil.isLoggedIn(request)) {
+            response.sendRedirect(request.getContextPath() + "/main");
+            return;
+        }
+
         String action = request.getParameter("action");
         if ("logout".equals(action)) {
             Cookie cookie = new Cookie("loginUser", "");
@@ -40,6 +47,9 @@ public class LoginController extends HttpServlet {
         UserAccountDTO user = loginService.login(loginId, password);
 
         if (user != null) {
+            // 세션에 유저 정보 저장 (헤더 동적 메뉴를 위해)
+            request.getSession().setAttribute("loginUser", user);
+
             Cookie cookie = new Cookie("loginUser", String.valueOf(user.getUserId()));
             cookie.setMaxAge(60 * 60); // 3600 seconds
             cookie.setPath("/");

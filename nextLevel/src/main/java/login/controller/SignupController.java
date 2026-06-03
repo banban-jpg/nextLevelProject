@@ -18,12 +18,26 @@ public class SignupController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        // 로그인 상태라면 회원가입 페이지 접근 불가 -> 메인으로 리다이렉트
+        if (login.util.AuthUtil.isLoggedIn(request)) {
+            response.sendRedirect(request.getContextPath() + "/main");
+            return;
+        }
+        
         request.getRequestDispatcher("/signup.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        // 로그인 상태라면 가입 처리 불필요
+        if (login.util.AuthUtil.isLoggedIn(request)) {
+            response.sendRedirect(request.getContextPath() + "/main");
+            return;
+        }
+
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");

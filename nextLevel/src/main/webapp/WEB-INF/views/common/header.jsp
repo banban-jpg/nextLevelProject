@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,7 +30,16 @@
           <li><a href="${pageContext.request.contextPath}/index">홈</a></li>
           <li><a href="${pageContext.request.contextPath}/shows/list">공연</a></li>
           <li><a href="${pageContext.request.contextPath}/ticket/confirm">예매확인</a></li>
-          <li><a href="${pageContext.request.contextPath}/login" class="nav-cta">로그인 / 회원가입</a></li>
+          
+          <c:choose>
+            <c:when test="${not empty sessionScope.loginUser}">
+              <li class="nav-welcome"><span><i class="fas fa-user-circle"></i> ${sessionScope.loginUser.name}님</span></li>
+              <li><a href="${pageContext.request.contextPath}/logout" class="nav-cta" style="background: #ff4757 !important;">로그아웃</a></li>
+            </c:when>
+            <c:otherwise>
+              <li><a href="${pageContext.request.contextPath}/login" class="nav-cta">로그인 / 회원가입</a></li>
+            </c:otherwise>
+          </c:choose>
         </ul>
       </nav>
       <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
@@ -43,6 +53,13 @@
       <li><a href="${pageContext.request.contextPath}/index" onclick="toggleMobileNav()">홈</a></li>
       <li><a href="${pageContext.request.contextPath}/shows/list" onclick="toggleMobileNav()">공연</a></li>
       <li><a href="${pageContext.request.contextPath}/ticket/confirm" onclick="toggleMobileNav()">예매확인</a></li>
-      <li><a href="${pageContext.request.contextPath}/login" onclick="toggleMobileNav()">로그인 / 회원가입</a></li>
+      <c:choose>
+        <c:when test="${not empty sessionScope.loginUser}">
+          <li><a href="${pageContext.request.contextPath}/logout" onclick="toggleMobileNav()">로그아웃 (${sessionScope.loginUser.name}님)</a></li>
+        </c:when>
+        <c:otherwise>
+          <li><a href="${pageContext.request.contextPath}/login" onclick="toggleMobileNav()">로그인 / 회원가입</a></li>
+        </c:otherwise>
+      </c:choose>
     </ul>
   </div>
