@@ -42,24 +42,5 @@
           </c:choose>
         </ul>
       </nav>
-      <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
-        <span></span><span></span><span></span>
-      </div>
     </div>
   </header>
-
-  <div class="mobile-nav" id="mobileNav">
-    <ul>
-      <li><a href="${pageContext.request.contextPath}/index" onclick="toggleMobileNav()">홈</a></li>
-      <li><a href="${pageContext.request.contextPath}/shows/list" onclick="toggleMobileNav()">공연</a></li>
-      <li><a href="${pageContext.request.contextPath}/ticket/confirm" onclick="toggleMobileNav()">예매확인</a></li>
-      <c:choose>
-        <c:when test="${not empty sessionScope.loginUser}">
-          <li><a href="${pageContext.request.contextPath}/logout" onclick="toggleMobileNav()">로그아웃 (${sessionScope.loginUser.name}님)</a></li>
-        </c:when>
-        <c:otherwise>
-          <li><a href="${pageContext.request.contextPath}/login" onclick="toggleMobileNav()">로그인 / 회원가입</a></li>
-        </c:otherwise>
-      </c:choose>
-    </ul>
-  </div>
