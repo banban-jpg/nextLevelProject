@@ -12,6 +12,7 @@
     <typeAliases>
         <typeAlias alias="ConcertDTO" type="concert.dto.ConcertDTO"/>
         <typeAlias alias="ConcertDetailDTO" type="concertDetail.dto.ConcertDetailDTO"/>
+        <typeAlias alias="ConcertSessionDTO" type="concertDetail.dto.ConcertSessionDTO"/>
     </typeAliases>
 
     <environments default="development">

@@ -139,7 +139,18 @@
                 </div>
                 <div class="info-row">
                     <span class="info-label">공연기간</span>
-                    <span class="info-value">${concert.performanceDate}</span>
+                    <span class="info-value">
+                        <c:choose>
+                            <c:when test="${not empty concert.sessions}">
+                                ${concert.sessions[0].startTime.substring(0, 10)}
+                                <c:if test="${concert.sessions.size() > 1}">
+                                    ~ ${concert.sessions[concert.sessions.size()-1].startTime.substring(0, 10)}
+                                    (${concert.sessions.size()}회차)
+                                </c:if>
+                            </c:when>
+                            <c:otherwise>TBD</c:otherwise>
+                        </c:choose>
+                    </span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">티켓오픈</span>
@@ -162,6 +173,18 @@
     </div>
     
     <div class="detail-bottom-section" data-aos="fade-up">
+        <span class="section-label">공연 일정</span>
+        <div class="content-box">
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <c:forEach var="session" items="${concert.sessions}" varStatus="status">
+                    <li style="padding: 10px 0; border-bottom: ${status.last ? 'none' : '1px solid #f0f3fa'}; display: flex; align-items: center;">
+                        <span style="background: var(--primary); color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.8rem; margin-right: 15px; font-weight: 700;">${status.count}회차</span>
+                        <span style="font-weight: 600; color: var(--text-dark);">${session.startTime}</span>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+        
         <span class="section-label">공연 상세 정보</span>
         <div class="content-box">
             ${concert.description}

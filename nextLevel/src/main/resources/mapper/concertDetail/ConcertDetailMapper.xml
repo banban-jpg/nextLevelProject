@@ -12,6 +12,10 @@
         <result property="description" column="DESCRIPTION"/>
         <result property="artistName" column="ARTIST_NAME"/>
         <result property="genre" column="GENRE"/>
+        <collection property="sessions" ofType="ConcertSessionDTO">
+            <id property="sessionId" column="SESSION_ID"/>
+            <result property="startTime" column="START_TIME"/>
+        </collection>
     </resultMap>
 
     <select id="selectConcertDetail" parameterType="int" resultMap="concertDetailResultMap">
@@ -20,23 +24,14 @@
                c.DESCRIPTION,
                c.ARTIST_NAME,
                c.GENRE,
-               NVL(s.PERFORMANCE_DATE, 'TBD') AS PERFORMANCE_DATE,
                TO_CHAR(c.BOOKING_OPEN_AT, 'YYYY.MM.DD HH24:MI') AS BOOKING_DATE,
-               v.NAME AS LOCATION
+               v.NAME AS LOCATION,
+               cs.SESSION_ID,
+               TO_CHAR(cs.START_TIME, 'YYYY.MM.DD HH24:MI') AS START_TIME
         FROM CONCERT c
         JOIN VENUE v ON c.VENUE_ID = v.VENUE_ID
-        LEFT JOIN (
-            SELECT CONCERT_ID,
-                   CASE
-                       WHEN TRUNC(MIN(START_TIME)) = TRUNC(MAX(START_TIME))
-                           THEN TO_CHAR(MIN(START_TIME), 'YYYY.MM.DD HH24:MI')
-                       ELSE TO_CHAR(MIN(START_TIME), 'YYYY.MM.DD HH24:MI')
-                            || ' ~ '
-                            || TO_CHAR(MAX(START_TIME), 'YYYY.MM.DD HH24:MI')
-                   END AS PERFORMANCE_DATE
-            FROM CONCERT_SESSION
-            GROUP BY CONCERT_ID
-        ) s ON c.CONCERT_ID = s.CONCERT_ID
+        LEFT JOIN CONCERT_SESSION cs ON c.CONCERT_ID = cs.CONCERT_ID
         WHERE c.CONCERT_ID = #{concertId}
+        ORDER BY cs.START_TIME ASC
     </select>
 </mapper>

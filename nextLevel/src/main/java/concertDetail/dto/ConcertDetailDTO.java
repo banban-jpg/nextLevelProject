@@ -1,5 +1,7 @@
 package concertDetail.dto;
 
+import java.util.List;
+
 public class ConcertDetailDTO {
     private int id;
     private String title;
@@ -12,6 +14,7 @@ public class ConcertDetailDTO {
     private String ticketNotice;
     private String artistName;
     private String genre;
+    private List<ConcertSessionDTO> sessions;
 
     public ConcertDetailDTO() {}
 
@@ -52,4 +55,6 @@ public class ConcertDetailDTO {
     public void setArtistName(String artistName) { this.artistName = artistName; }
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
+    public List<ConcertSessionDTO> getSessions() { return sessions; }
+    public void setSessions(List<ConcertSessionDTO> sessions) { this.sessions = sessions; }
 }
