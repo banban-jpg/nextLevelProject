@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main.mapper.ViewCountMapper">
+    <select id="countByViewDate" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM VIEW_COUNT
+        WHERE VIEW_DATE = #{viewDate}
+    </select>
+
+    <insert id="insertTodayRecord" parameterType="string">
+        INSERT INTO VIEW_COUNT (ID, VIEW_DATE, VIEW_COUNT)
+        VALUES ((SELECT NVL(MAX(ID), 0) + 1 FROM VIEW_COUNT), #{viewDate}, 0)
+    </insert>
+
+    <update id="incrementViewCount" parameterType="string">
+        UPDATE VIEW_COUNT
+        SET VIEW_COUNT = VIEW_COUNT + 1
+        WHERE VIEW_DATE = #{viewDate}
+    </update>
+
+    <select id="selectViewCountByDate" parameterType="string" resultType="int">
+        SELECT VIEW_COUNT
+        FROM VIEW_COUNT
+        WHERE VIEW_DATE = #{viewDate}
+    </select>
+</mapper>

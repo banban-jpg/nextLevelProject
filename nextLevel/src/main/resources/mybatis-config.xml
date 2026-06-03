@@ -27,5 +27,6 @@
 
     <mappers>
         <mapper resource="mapper/concert/ConcertMapper.xml"/>
+        <mapper resource="mapper/main/ViewCountMapper.xml"/>
     </mappers>
 </configuration>
