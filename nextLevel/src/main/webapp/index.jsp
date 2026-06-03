@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 
 <%-- 1. 공통 헤더 (head 태그, 네비게이션 포함) --%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
   <section id="hero">
     <div class="hero-orb hero-orb-1"></div>
@@ -20,6 +21,7 @@
         <div class="hero-stats">
           <div class="stat-item"><span class="stat-num">2,400+</span><span class="stat-label">등록 공연 수</span></div>
           <div class="stat-item"><span class="stat-num">380만</span><span class="stat-label">누적 회원</span></div>
+          <div class="stat-item"><span class="stat-num"><c:out value="${todayViewCount}" default="0"/></span><span class="stat-label">오늘 방문자</span></div>
           <div class="stat-item"><span class="stat-num">99.9%</span><span class="stat-label">고객 만족도</span></div>
         </div>
       </div>

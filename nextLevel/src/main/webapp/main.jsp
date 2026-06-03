@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -156,11 +157,11 @@
                 <div class="notice-list">
                     <a href="#">[안내] 2026 NEXT LEVEL 멤버십 혜택 개편 안내 (3월 1일부터)</a>
                 </div>
-                <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; margin-left: 15px; border-left: 1px solid #ddd; padding-left: 15px;">
+                <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; margin-left: 15px; border-left: 1px solid #ddd; padding-left: 15px; flex-shrink: 0; white-space: nowrap;">
                     <i class="fas fa-eye" style="color: var(--primary);"></i> 
-                    <span>오늘 방문: <strong style="color: var(--text-dark);">${todayViewCount}</strong></span>
+                    <span>오늘 방문: <strong style="color: var(--text-dark);"><c:out value="${todayViewCount}" default="0"/></strong></span>
                 </div>
-                <i class="fas fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem; margin-left: 10px;"></i>
+                <i class="fas fa-chevron-right" style="color: var(--text-muted); font-size: 0.8rem; margin-left: 10px; flex-shrink: 0;"></i>
             </div>
 
             <section style="margin-bottom: 80px;">

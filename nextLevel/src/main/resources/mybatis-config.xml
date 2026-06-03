@@ -13,6 +13,7 @@
         <typeAlias alias="ConcertDTO" type="concert.dto.ConcertDTO"/>
         <typeAlias alias="ConcertDetailDTO" type="concertDetail.dto.ConcertDetailDTO"/>
         <typeAlias alias="ConcertSessionDTO" type="concertDetail.dto.ConcertSessionDTO"/>
+        <typeAlias alias="UserAccountDTO" type="login.dto.UserAccountDTO"/>
     </typeAliases>
 
     <environments default="development">
@@ -31,5 +32,6 @@
         <mapper resource="mapper/concert/ConcertMapper.xml"/>
         <mapper resource="mapper/concertDetail/ConcertDetailMapper.xml"/>
         <mapper resource="mapper/main/ViewCountMapper.xml"/>
+        <mapper resource="mapper/login/LoginMapper.xml"/>
     </mappers>
 </configuration>

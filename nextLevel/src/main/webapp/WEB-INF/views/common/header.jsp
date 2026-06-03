@@ -20,16 +20,16 @@
 
   <header id="header">
     <div class="nav-inner">
-      <a href="/index.jsp" class="logo">
+      <a href="${pageContext.request.contextPath}/index" class="logo">
         <span class="logo-main">NEXT LEVEL</span>
         <span class="logo-sub">넥스트 레벨</span>
       </a>
       <nav>
         <ul>
-          <li><a href="/index.jsp">홈</a></li>
-          <li><a href="/shows/list">공연</a></li>
-          <li><a href="/ticket/confirm">예매확인</a></li>
-          <li><a href="/login" class="nav-cta">로그인 / 회원가입</a></li>
+          <li><a href="${pageContext.request.contextPath}/index">홈</a></li>
+          <li><a href="${pageContext.request.contextPath}/shows/list">공연</a></li>
+          <li><a href="${pageContext.request.contextPath}/ticket/confirm">예매확인</a></li>
+          <li><a href="${pageContext.request.contextPath}/login" class="nav-cta">로그인 / 회원가입</a></li>
         </ul>
       </nav>
       <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
@@ -40,9 +40,9 @@
 
   <div class="mobile-nav" id="mobileNav">
     <ul>
-      <li><a href="/index.jsp" onclick="toggleMobileNav()">홈</a></li>
-      <li><a href="/shows/list" onclick="toggleMobileNav()">공연</a></li>
-      <li><a href="/ticket/confirm" onclick="toggleMobileNav()">예매확인</a></li>
-      <li><a href="/login" onclick="toggleMobileNav()">로그인 / 회원가입</a></li>
+      <li><a href="${pageContext.request.contextPath}/index" onclick="toggleMobileNav()">홈</a></li>
+      <li><a href="${pageContext.request.contextPath}/shows/list" onclick="toggleMobileNav()">공연</a></li>
+      <li><a href="${pageContext.request.contextPath}/ticket/confirm" onclick="toggleMobileNav()">예매확인</a></li>
+      <li><a href="${pageContext.request.contextPath}/login" onclick="toggleMobileNav()">로그인 / 회원가입</a></li>
     </ul>
   </div>

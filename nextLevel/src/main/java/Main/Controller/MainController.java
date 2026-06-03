@@ -17,6 +17,7 @@ public class MainController extends HttpServlet {
 
         // Service 계층을 통해 오늘 날짜 조회수 가져오기
         int todayViewCount = viewCountService.getTodayViewCount();
+        System.out.println("[MainController] Today View Count: " + todayViewCount);
         
         request.setAttribute("todayViewCount", todayViewCount);
 
