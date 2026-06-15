@@ -172,17 +172,14 @@
                 </c:if>
             </div>
             
-            <c:choose>
-                <c:when test="${concert.bookingStatus eq 'PREPARING'}">
-                    <button class="booking-btn-large" disabled>예매 준비 중</button>
-                </c:when>
-                <c:when test="${concert.bookingStatus eq 'CLOSED'}">
-                    <button class="booking-btn-large" disabled>예매 마감</button>
-                </c:when>
-                <c:otherwise>
-                    <button class="booking-btn-large">예매하기</button>
-                </c:otherwise>
-            </c:choose>
+            <button class="booking-btn-large" ${concert.bookingStatus eq 'OPEN' ? '' : 'disabled'}
+                    onclick="window.open('/ticketing?concertId=${concert.id}', 'ticketing', 'width=1250,height=850,location=no,status=no,scrollbars=yes');">
+                <c:choose>
+                    <c:when test="${concert.bookingStatus eq 'PREPARING'}">예매 준비 중</c:when>
+                    <c:when test="${concert.bookingStatus eq 'CLOSED'}">예매 마감</c:when>
+                    <c:otherwise>예매하기</c:otherwise>
+                </c:choose>
+            </button>
         </div>
     </div>
     

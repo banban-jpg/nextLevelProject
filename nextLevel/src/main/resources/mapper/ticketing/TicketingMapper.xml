@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticketing.mapper.TicketingMapper">
+
+    <select id="selectSessionsByConcertId" parameterType="int" resultType="ticketing.dto.TicketingSessionDTO">
+        SELECT SESSION_ID,
+               TO_CHAR(START_TIME, 'YYYY.MM.DD HH24:MI') AS START_TIME
+        FROM CONCERT_SESSION
+        WHERE CONCERT_ID = #{concertId}
+        ORDER BY START_TIME ASC
+    </select>
+
+    <select id="selectSeatStatusBySessionId" parameterType="int" resultType="ticketing.dto.SeatStatusDTO">
+        SELECT s.SEAT_ID,
+               s.SECTION,
+               s.SEAT_NO,
+               NVL(ss.STATUS, 'AVAILABLE') AS STATUS
+        FROM SEAT s
+        JOIN CONCERT_SESSION cs ON s.VENUE_ID = (SELECT VENUE_ID FROM CONCERT WHERE CONCERT_ID = cs.CONCERT_ID)
+        LEFT JOIN SEAT_STATUS ss ON s.SEAT_ID = ss.SEAT_ID AND ss.SESSION_ID = cs.SESSION_ID
+        WHERE cs.SESSION_ID = #{sessionId}
+        ORDER BY s.SECTION ASC, s.SEAT_NO ASC
+    </select>
+
+    <select id="selectConcertTitle" parameterType="int" resultType="string">
+        SELECT TITLE FROM CONCERT WHERE CONCERT_ID = #{concertId}
+    </select>
+
+    <select id="selectVenueName" parameterType="int" resultType="string">
+        SELECT v.NAME 
+        FROM CONCERT c
+        JOIN VENUE v ON c.VENUE_ID = v.VENUE_ID
+        WHERE c.CONCERT_ID = #{concertId}
+    </select>
+
+    <insert id="insertSeatStatus" parameterType="map">
+        INSERT INTO SEAT_STATUS (SESSION_ID, SEAT_ID, STATUS, LOCKED_AT, LOCKED_BY, EXPIRES_AT)
+        SELECT #{sessionId}, #{seatId}, 'LOCKED', CURRENT_TIMESTAMP, #{userId}, CURRENT_TIMESTAMP + INTERVAL '30' MINUTE
+        FROM DUAL
+        WHERE NOT EXISTS (
+            SELECT 1 FROM SEAT_STATUS 
+            WHERE SESSION_ID = #{sessionId} AND SEAT_ID = #{seatId}
+        )
+    </insert>
+
+</mapper>

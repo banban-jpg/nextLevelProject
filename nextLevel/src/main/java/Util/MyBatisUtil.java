@@ -25,4 +25,8 @@ public class MyBatisUtil {
     public static SqlSession openSession() {
         return SQL_SESSION_FACTORY.openSession();
     }
+
+    public static SqlSession openSession(boolean autoCommit) {
+        return SQL_SESSION_FACTORY.openSession(autoCommit);
+    }
 }
