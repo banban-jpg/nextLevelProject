@@ -34,6 +34,15 @@ public class TicketingDAO {
         }
     }
 
+    public int getUserLockCount(int sessionId, long userId) {
+        try (SqlSession session = MyBatisUtil.openSession()) {
+            java.util.Map<String, Object> params = new java.util.HashMap<>();
+            params.put("sessionId", sessionId);
+            params.put("userId", userId);
+            return session.selectOne(NAMESPACE + "selectUserLockCount", params);
+        }
+    }
+
     public int lockSeat(int sessionId, int seatId, long userId) {
         try (SqlSession session = MyBatisUtil.openSession(true)) {
             java.util.Map<String, Object> params = new java.util.HashMap<>();

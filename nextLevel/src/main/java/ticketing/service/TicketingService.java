@@ -25,6 +25,10 @@ public class TicketingService {
         return ticketingDAO.getVenueName(concertId);
     }
 
+    public int getUserLockCount(int sessionId, long userId) {
+        return ticketingDAO.getUserLockCount(sessionId, userId);
+    }
+
     public boolean lockSeat(int sessionId, int seatId, long userId) {
         return ticketingDAO.lockSeat(sessionId, seatId, userId) > 0;
     }

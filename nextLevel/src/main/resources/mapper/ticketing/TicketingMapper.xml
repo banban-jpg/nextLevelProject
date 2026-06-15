@@ -35,6 +35,11 @@
         WHERE c.CONCERT_ID = #{concertId}
     </select>
 
+    <select id="selectUserLockCount" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM SEAT_STATUS 
+        WHERE LOCKED_BY = #{userId} AND SESSION_ID = #{sessionId}
+    </select>
+
     <insert id="insertSeatStatus" parameterType="map">
         INSERT INTO SEAT_STATUS (SESSION_ID, SEAT_ID, STATUS, LOCKED_AT, LOCKED_BY, EXPIRES_AT)
         SELECT #{sessionId}, #{seatId}, 'LOCKED', CURRENT_TIMESTAMP, #{userId}, CURRENT_TIMESTAMP + INTERVAL '30' MINUTE

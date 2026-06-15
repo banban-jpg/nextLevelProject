@@ -296,6 +296,9 @@
                 } else if (response.status === 409) {
                     alert('이미 선택된 좌석입니다.');
                     location.reload();
+                } else if (response.status === 403) {
+                    alert('1인당 1좌석만 예매 가능합니다.');
+                    location.reload();
                 } else if (response.status === 401) {
                     alert('로그인이 필요합니다.');
                 } else {

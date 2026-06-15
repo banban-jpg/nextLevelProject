@@ -77,6 +77,14 @@ public class TicketingController extends HttpServlet {
             int sessionId = Integer.parseInt(sessionIdParam);
             int seatId = Integer.parseInt(seatIdParam);
 
+            // Check if user already has a seat locked in THIS session
+            int lockCount = ticketingService.getUserLockCount(sessionId, userId);
+            if (lockCount > 0) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.getWriter().write("LIMIT_EXCEEDED");
+                return;
+            }
+
             boolean success = ticketingService.lockSeat(sessionId, seatId, userId);
 
             if (success) {
