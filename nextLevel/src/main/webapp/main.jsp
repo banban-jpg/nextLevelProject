@@ -1,118 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEXT LEVEL — Premium Ticketing</title>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    
-    <link rel="stylesheet" href="/static/css/style.css" />
+<style>
+    /* main.jsp 전용 추가 스타일 */
+    :root {
+        --ranking-num: rgba(255, 255, 255, 0.9);
+    }
 
-    <style>
-        /* main.jsp 전용 추가 스타일 */
-        :root {
-            --ranking-num: rgba(255, 255, 255, 0.9);
-        }
+    /* 1. Hero Slider Area */
+    .main-slider {
+        position: relative;
+        padding-top: 72px; /* 헤더 높이만큼 여백 */
+        background: var(--text-dark);
+    }
+    .slide-item {
+        height: 500px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+    .slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+    }
+    .slide-content { position: relative; z-index: 2; }
+    .hot-tag { background: #ff3e3e; color: white; padding: 4px 12px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; margin-bottom: 15px; display: inline-block; }
 
-        /* 1. Hero Slider Area */
-        .main-slider {
-            position: relative;
-            padding-top: 72px; /* 헤더 높이만큼 여백 */
-            background: var(--text-dark);
-        }
-        .slide-item {
-            height: 500px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            display: flex;
-            align-items: center;
-            color: white;
-        }
-        .slide-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
-        }
-        .slide-content { position: relative; z-index: 2; }
-        .hot-tag { background: #ff3e3e; color: white; padding: 4px 12px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; margin-bottom: 15px; display: inline-block; }
+    /* 2. Ranking Section */
+    .ranking-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+        margin-top: 30px;
+    }
+    .ranking-card {
+        position: relative;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        transition: var(--transition);
+    }
+    .ranking-card:hover { transform: translateY(-10px); }
+    .ranking-num {
+        position: absolute;
+        bottom: -10px;
+        left: 10px;
+        font-family: var(--font-display);
+        font-size: 5rem;
+        color: var(--ranking-num);
+        font-style: italic;
+        z-index: 2;
+        line-height: 1;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        pointer-events: none;
+    }
+    .ranking-img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        border-radius: var(--radius-md);
+    }
 
-        /* 2. Ranking Section */
-        .ranking-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .ranking-card {
-            position: relative;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-        .ranking-card:hover { transform: translateY(-10px); }
-        .ranking-num {
-            position: absolute;
-            bottom: -10px;
-            left: 10px;
-            font-family: var(--font-display);
-            font-size: 5rem;
-            color: var(--ranking-num);
-            font-style: italic;
-            z-index: 2;
-            line-height: 1;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-            pointer-events: none;
-        }
-        .ranking-img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            border-radius: var(--radius-md);
-        }
+    /* 3. Today's Pick (가로 스크롤 가능 구조) */
+    .scroll-container {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding: 20px 0;
+        scrollbar-width: none;
+    }
+    .scroll-container::-webkit-scrollbar { display: none; }
+    .pick-card { min-width: 280px; }
 
-        /* 3. Today's Pick (가로 스크롤 가능 구조) */
-        .scroll-container {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 20px 0;
-            scrollbar-width: none;
-        }
-        .scroll-container::-webkit-scrollbar { display: none; }
-        .pick-card { min-width: 280px; }
+    /* 4. Notice Area */
+    .notice-bar {
+        background: var(--lightest);
+        padding: 15px 24px;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    .notice-label { font-weight: 700; color: var(--primary); flex-shrink: 0; }
+    .notice-list { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.9rem; }
 
-        /* 4. Notice Area */
-        .notice-bar {
-            background: var(--lightest);
-            padding: 15px 24px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .notice-label { font-weight: 700; color: var(--primary); flex-shrink: 0; }
-        .notice-list { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.9rem; }
+    @media (max-width: 768px) {
+        .ranking-grid { grid-template-columns: repeat(2, 1fr); }
+        .slide-item { height: 350px; }
+    }
+</style>
 
-        @media (max-width: 768px) {
-            .ranking-grid { grid-template-columns: repeat(2, 1fr); }
-            .slide-item { height: 350px; }
-        }
-    </style>
-</head>
-<body>
-
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-
-    <main>
-        <section class="main-slider">
+<main>
+    <section class="main-slider">
             <div class="slide-item" style="background-image: url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa3d?auto=format&fit=crop&w=1200&q=80');">
                 <div class="slide-overlay"></div>
                 <div class="container slide-content" data-aos="fade-up">

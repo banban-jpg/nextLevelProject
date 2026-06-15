@@ -76,9 +76,13 @@
         cursor: pointer;
         transition: var(--transition);
     }
-    .booking-btn-large:hover {
+    .booking-btn-large:hover:not(:disabled) {
         background: var(--primary);
         box-shadow: var(--shadow-md);
+    }
+    .booking-btn-large:disabled {
+        background: #ccc;
+        cursor: not-allowed;
     }
     
     .detail-bottom-section {
@@ -168,7 +172,17 @@
                 </c:if>
             </div>
             
-            <button class="booking-btn-large">예매하기</button>
+            <c:choose>
+                <c:when test="${concert.bookingStatus eq 'PREPARING'}">
+                    <button class="booking-btn-large" disabled>예매 준비 중</button>
+                </c:when>
+                <c:when test="${concert.bookingStatus eq 'CLOSED'}">
+                    <button class="booking-btn-large" disabled>예매 마감</button>
+                </c:when>
+                <c:otherwise>
+                    <button class="booking-btn-large">예매하기</button>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
     

@@ -14,6 +14,7 @@ public class ConcertDetailDTO {
     private String ticketNotice;
     private String artistName;
     private String genre;
+    private String bookingStatus;
     private List<ConcertSessionDTO> sessions;
 
     public ConcertDetailDTO() {}
@@ -55,6 +56,8 @@ public class ConcertDetailDTO {
     public void setArtistName(String artistName) { this.artistName = artistName; }
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }
+    public String getBookingStatus() { return bookingStatus; }
+    public void setBookingStatus(String bookingStatus) { this.bookingStatus = bookingStatus; }
     public List<ConcertSessionDTO> getSessions() { return sessions; }
     public void setSessions(List<ConcertSessionDTO> sessions) { this.sessions = sessions; }
 }

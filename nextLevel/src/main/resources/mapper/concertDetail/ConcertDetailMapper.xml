@@ -12,6 +12,7 @@
         <result property="description" column="DESCRIPTION"/>
         <result property="artistName" column="ARTIST_NAME"/>
         <result property="genre" column="GENRE"/>
+        <result property="bookingStatus" column="BOOKING_STATUS"/>
         <collection property="sessions" ofType="ConcertSessionDTO">
             <id property="sessionId" column="SESSION_ID"/>
             <result property="startTime" column="START_TIME"/>
@@ -25,6 +26,12 @@
                c.ARTIST_NAME,
                c.GENRE,
                TO_CHAR(c.BOOKING_OPEN_AT, 'YYYY.MM.DD HH24:MI') AS BOOKING_DATE,
+               CASE 
+                   WHEN SYSDATE &lt; c.BOOKING_OPEN_AT THEN 'PREPARING'
+                   WHEN (SELECT MIN(START_TIME) FROM CONCERT_SESSION WHERE CONCERT_ID = c.CONCERT_ID) IS NOT NULL 
+                        AND SYSDATE &gt;= (SELECT MIN(START_TIME) FROM CONCERT_SESSION WHERE CONCERT_ID = c.CONCERT_ID) THEN 'CLOSED'
+                   ELSE 'OPEN'
+               END AS BOOKING_STATUS,
                v.NAME AS LOCATION,
                cs.SESSION_ID,
                TO_CHAR(cs.START_TIME, 'YYYY.MM.DD HH24:MI') AS START_TIME
